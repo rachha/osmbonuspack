@@ -35,6 +35,8 @@ public class Road  implements Parcelable {
 	public double mLength; 
 	/** duration of the whole trip in sec. */
 	public double mDuration;
+	/** Fuel required for the whole trip in grams */
+	public double mFuel;
 	/** list of intersections or "nodes" */
 	public ArrayList<RoadNode> mNodes;
 	/** there is one leg between each waypoint */
@@ -139,7 +141,8 @@ public class Road  implements Parcelable {
 	public String getLengthDurationText(Context context, int leg) {
 		double length = (leg == -1 ? mLength : mLegs.get(leg).mLength);
 		double duration = (leg == -1 ? mDuration : mLegs.get(leg).mDuration);
-		return getLengthDurationText(context, length, duration);
+		return getLengthDurationText(context, length, duration) + " " +
+				"          " +  Double.toString(Math.round(mFuel/740.0 *100.0) /100.0 ) + "Liters";
 	}
 	
 	protected double distanceLLSquared(GeoPoint p1, GeoPoint p2){
